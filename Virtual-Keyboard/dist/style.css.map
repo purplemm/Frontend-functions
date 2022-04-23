@@ -1,0 +1,1 @@
+{"version":3,"file":"style.css","mappings":"AAAA,EAAG,SAAU,CACb,IAAK,WAAY","sources":["webpack://virtual-keyboard/./src/css/style.css"],"sourcesContent":["p {color:red;}\r\ndiv {width:100px;}"],"names":[],"sourceRoot":""}
