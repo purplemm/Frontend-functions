@@ -1,2 +1,41 @@
-p {color:red;}
-div {width:100px; height:100px; background:orange; color:red;}
+* {user-select:none; outline:none;}
+html[theme="dark-mode"] {filter:invert(100%) hue-rotate(180deg);}
+body {background-color:white;}
+.container {width:1050px; margin:auto;}
+
+/* menu */
+.menu {display:flex;}
+.switch {position:relative; width:60px; height:34px;}
+.switch input {display:none;}
+.slider {position:absolute; top:0; right:0; bottom:0; left:0; background-color:gray; border-radius:34px; transition:0.4s; cursor:pointer;}
+.slider:before {content:""; position:absolute; bottom:4px; left:4px; width:26px; height:26px; border-radius:50%; background-color:white; transition:transform 0.2s ease-out;}
+input:checked + .slider {background-color:black;}
+input:checked + .slider:before {transform:translateX(26px);}
+.select-box {position:relative; height:34px; margin-left:60px;}
+.select-box select {width:200px; height:34px; padding:2px 5px; font-size:0.9rem;}
+
+/* input-group */
+.input-group {margin:100px 0px;}
+.input {display:block; width:1050px; height:50px; border:none; border-bottom:2px solid lightgrey; font-size:30px; text-align:center;}
+.error-message {margin-top:10px; color:#cc0033; font-size:30px; line-height:30px; text-align:center;}
+.input-group .error-message {display:none;}
+.error input {border-bottom:2px solid red;}
+.error .error-message {display:block;}
+
+/* keyboard */
+.keyboard {width:1050px; border-radius:4px; background-color:gray; color:gray;}
+.row {display:flex;}
+.key {display:flex; align-items:center; justify-content:center; flex-wrap:wrap; width:60px; height:60px; margin:5px; border-radius:4px; background-color:white; transition:background-color 0.2s ease-out; cursor:pointer;}
+.key:hover {background-color:lightgray;}
+.key.active {background-color:#333; color:#fff;}
+.key .two-value {width:100%; text-align:center;}
+.fn-key {width:80px;}
+.space-key {width:420px;}
+.back-space-key {width:130px;}
+.tab-key {width:95px;}
+.back-slash-key {width:95px;}
+.caps-lock-key {width:110px;}
+.left-shift-key {width:145px;}
+.enter-key {width:150px;}
+.right-shift-key {width:185px;}
+  
