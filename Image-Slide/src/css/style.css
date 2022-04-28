@@ -1,0 +1,29 @@
+@import url("~@fortawesome/fontawesome-free/css/all.min.css");
+
+* {margin:0; padding:0; list-style:none;}
+
+.slider-wrap {overflow:hidden; position:relative; width:1000px; height:400px; margin:50px auto;}
+.slider-wrap ul {transition:all 0.4s ease-out;}
+.slider-wrap ul.slider {position:absolute; left:0; width:100%; height:100%;}
+.slider-wrap ul.slider li {float:left; width:1000px; height:400px;}
+
+.btn {position:absolute; top:50%; width:50px; height:60px; margin-top:-25px; background:rgba(0, 0, 0, 0.1); line-height:57px; text-align:center; transition:all 0.2s ease-out; user-select:none; cursor:pointer; z-index:100;}
+.btn:hover {background:rgba(0, 0, 0, 0.3);}
+.next {right:-50px; border-radius:7px 0px 0px 7px; color:white;}
+.prev {left:-50px; border-radius:0px 7px 7px 7px; color:white;}
+.slider-wrap:hover .next {right:0px;}
+.slider-wrap:hover .prev {left:0px;}
+
+.indicator-wrap {position:relative; min-width:20px; height:15px; margin:350px auto 0; text-align:center;}
+.indicator-wrap ul {width:100%;}
+.indicator-wrap ul li {display:inline-block; position:relative; top:0; width:15px; height:15px; margin:0 4px; border-radius:50%; background:#fff; opacity:0.5; cursor:pointer;}
+.indicator-wrap ul li.active {width:15px; height:15px; opacity:1;}
+
+.control-wrap {position:absolute; top:350px; right:35px; width:auto;}
+.control-wrap i {margin-right:20px; color:white; cursor:pointer;}
+
+.play .fa-play {display:none;}
+.play .fa-pause {display:block;}
+.pause .fa-play { display:block;}
+.pause .fa-pause {display:none;}
+  
