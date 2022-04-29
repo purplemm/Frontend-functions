@@ -2,11 +2,14 @@ export default class ImageSlider {
   #currentPosition = 0;
   #slideNumber = 0;
   #slideWidth = 0;
+  #intervalId;
+  #autoPlay = true;
   sldierWrapEl;
   sliderListEl;
   nextBtnEl;
   prevBtnEl;
   indicatorWrapEl;
+  controlWrapEl;
 
   constructor() {
     this.assignElement();
@@ -15,6 +18,8 @@ export default class ImageSlider {
     this.initSliderListWidth();
     this.addEvent();
     this.createIndicator();
+    this.setIndicator();
+    this.initAutoPlay();
   }
 
   assignElement() {
@@ -23,6 +28,11 @@ export default class ImageSlider {
     this.nextBtnEl = this.sliderWrapEl.querySelector('#next');
     this.prevBtnEl = this.sliderWrapEl.querySelector('#prev');
     this.indicatorWrapEl = this.sliderWrapEl.querySelector('#indicator-wrap');
+    this.controlWrapEl = this.sliderWrapEl.querySelector('#control-wrap');
+  }
+
+  initAutoPlay() {
+    this.#intervalId = setInterval(this.moveToRight.bind(this), 2000);
   }
 
   initSliderNumber() {
@@ -40,6 +50,25 @@ export default class ImageSlider {
   addEvent() {
     this.nextBtnEl.addEventListener('click', this.moveToRight.bind(this));
     this.prevBtnEl.addEventListener('click', this.moveToLeft.bind(this));
+    this.indicatorWrapEl.addEventListener(
+      'click',
+      this.onClickIndicator.bind(this),
+    );
+    this.controlWrapEl.addEventListener('click', this.togglePlay.bind(this));
+  }
+
+  togglePlay(e) {
+    if (e.target.dataset.status === 'play') {
+      this.#autoPlay = true;
+      this.controlWrapEl.classList.add('play');
+      this.controlWrapEl.classList.remove('pause');
+      this.initAutoPlay();
+    } else if (e.target.dataset.status === 'pause') {
+      this.#autoPlay = false;
+      this.controlWrapEl.classList.remove('play');
+      this.controlWrapEl.classList.add('pause');
+      clearInterval(this.#intervalId);
+    }
   }
 
   moveToLeft() {
@@ -50,6 +79,13 @@ export default class ImageSlider {
     this.sliderListEl.style.left = `-${
       this.#slideWidth * this.#currentPosition
     }px`;
+
+    if (this.#autoPlay) {
+      clearInterval(this.#intervalId);
+      this.#intervalId = setInterval(this.moveToRight.bind(this), 2000);
+    }
+
+    this.setIndicator();
   }
 
   moveToRight() {
@@ -60,16 +96,43 @@ export default class ImageSlider {
     this.sliderListEl.style.left = `-${
       this.#slideWidth * this.#currentPosition
     }px`;
+
+    if (this.#autoPlay) {
+      clearInterval(this.#intervalId);
+      this.#intervalId = setInterval(this.moveToRight.bind(this), 2000);
+    }
+
+    this.setIndicator();
   }
 
   createIndicator() {
     const docFragment = document.createDocumentFragment(); // 여러개의 엘리먼트를 넣어두는 가상 공간
 
-    for (let i = 0; this.#slideNumber; i++) {
+    for (let i = 0; i < this.#slideNumber; i++) {
       const li = document.createElement('li');
       li.dataset.index = i;
-      docFragment.querySelector('ul').appendChild(li);
+      docFragment.appendChild(li);
     }
     this.indicatorWrapEl.querySelector('ul').appendChild(docFragment);
+  }
+
+  setIndicator() {
+    this.indicatorWrapEl.querySelector('li.active')?.classList.remove('active');
+    this.indicatorWrapEl
+      .querySelector(`ul li:nth-child(${this.#currentPosition + 1})`)
+      .classList.add('active');
+  }
+
+  onClickIndicator(e) {
+    const indexPosition = parseInt(e.target.dataset.index);
+
+    if (Number.isInteger(indexPosition)) {
+      this.#currentPosition = indexPosition;
+      this.sliderListEl.style.left = `-${
+        this.#slideWidth * this.#currentPosition
+      }px`;
+    }
+
+    this.setIndicator();
   }
 }
